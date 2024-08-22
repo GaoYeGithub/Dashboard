@@ -48,10 +48,10 @@ function loadNews() {
     $.getJSON(url + apiKey, function(data) {
         var newsItems = data.articles.map(function(article) {
             return '<a href="' + article.url + '" class="list-group-item list-group-item-action" target="_blank">' +
-                '<h5 class="mb-1">' + article.title + '</h5>' +
-                '<p class="mb-1">' + article.description + '</p>' +
-                '<small>Source: ' + article.source.name + '</small>' +
-                '</a>'
+                   '<h5 class="mb-1">' + article.title + '</h5>' +
+                   '<p class="mb-1">' + article.description + '</p>' +
+                   '<small>Source: ' + article.source.name + '</small>' +
+                   '</a>'
         })
 
         news.html(newsItems.join(''))
@@ -62,8 +62,34 @@ function loadNews() {
     news.html('<div class="text-center">Fetching news...</div>')
 }
 
+function loadScrapbook() {
+    var username = 'YeGao'
+    var streakElement = $('#scrapbook-streak')
+    var postsElement = $('#scrapbook-posts')
+
+    $.getJSON('https://scrapbook.hackclub.com/api/users/' + username, function(data) {
+        streakElement.html('Current streak: ' + data.streakCount + ' days')
+
+        var latestPosts = data.posts.slice(0, 5).map(function(post) {
+            return '<div class="card mb-3">' +
+                   '<div class="card-body">' +
+                   '<p class="card-text">' + post.text + '</p>' +
+                   '<p class="card-text"><small class="text-muted">Posted on ' + new Date(post.postedAt).toLocaleDateString() + '</small></p>' +
+                   '</div>' +
+                   '</div>'
+        })
+
+        postsElement.html(latestPosts.join(''))
+    }).fail(function() {
+        streakElement.html('<div class="alert alert-danger">Failed to fetch Scrapbook data. Please try again later.</div>')
+    })
+
+    streakElement.html('<div class="text-center">Fetching Scrapbook data...</div>')
+}
+
 $(document).ready(function() {
     loadDate()
     loadWeather()
     loadNews()
+    loadScrapbook()
 })
