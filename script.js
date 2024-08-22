@@ -21,22 +21,23 @@ function loadWeather() {
         $.getJSON(
             url + '?units=imperial&lat=' + latitude + '&lon=' + longitude + '&appid=' + apiKey,
             function(data) {
-                weather.text(
-                    'Based on your current location, it is ' +
-                    data.main.temp +
-                    '° F right now'
+                weather.html(
+                    '<strong>Based on your current location:</strong><br>' +
+                    'Temperature: ' + data.main.temp + '° F<br>' +
+                    'Condition: ' + data.weather[0].main + '<br>' +
+                    'Humidity: ' + data.main.humidity + '%'
                 )
             }
         )
     }
 
     function error() {
-        alert('Unable to retrieve your location for weather')
+        weather.html('<div class="alert alert-danger">Unable to retrieve your location for weather</div>')
     }
 
     navigator.geolocation.getCurrentPosition(success, error)
 
-    weather.text('fetching weather...')
+    weather.html('<div class="text-center">Fetching weather...</div>')
 }
 
 function loadNews() {
@@ -45,17 +46,24 @@ function loadNews() {
     var apiKey = 'b33a8b7fabcbe3cc4aa291153e150f88'
 
     $.getJSON(url + apiKey, function(data) {
-        var titles = data.articles.map(function(article) {
-            return "<a href='" + article.url + "'>" + article.title + '</a>'
+        var newsItems = data.articles.map(function(article) {
+            return '<a href="' + article.url + '" class="list-group-item list-group-item-action" target="_blank">' +
+                '<h5 class="mb-1">' + article.title + '</h5>' +
+                '<p class="mb-1">' + article.description + '</p>' +
+                '<small>Source: ' + article.source.name + '</small>' +
+                '</a>'
         })
 
-        news.html(titles.join('<br><br>'))
+        news.html(newsItems.join(''))
+    }).fail(function() {
+        news.html('<div class="alert alert-danger">Failed to fetch news. Please try again later.</div>')
     })
 
-    news.text('fetching news...')
+    news.html('<div class="text-center">Fetching news...</div>')
 }
 
-
-loadDate()
-loadWeather()
-loadNews()
+$(document).ready(function() {
+    loadDate()
+    loadWeather()
+    loadNews()
+})

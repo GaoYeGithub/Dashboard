@@ -1,32 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>My Dashboard</title>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta charset="utf-8" />
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
-    <link rel="stylesheet" href="style.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <h1>Hello! Today is <span id="date"></span></h1>
-    <hr />
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="display-4 mb-4">Hello! Today is <span id="date" class="text-primary"></span></h1>
+            </div>
+        </div>
 
-    <h2><span id="weather"></span></h2>
-    <hr />
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">Weather</h2>
+                        <p class="card-text" id="weather"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <h2>Latest news:</h2>
-    <div id="news"></div>
-    <p>
-        Powered by <a href="https://newsapi.org/">NewsAPI</a> and
-        <a href="https://openweathermap.org/">OpenWeatherMap</a>
-    </p>
+        <div class="row">
+            <div class="col-12">
+                <h2 class="mb-3">Latest news:</h2>
+                <div id="news" class="list-group mb-4"></div>
+            </div>
+        </div>
 
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="script.js"></script>
+        <footer class="text-center text-muted">
+            <p>
+                Powered by <a href="https://newsapi.org/" class="text-decoration-none">NewsAPI</a> and
+                <a href="https://openweathermap.org/" class="text-decoration-none">OpenWeatherMap</a>
+            </p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
