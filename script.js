@@ -41,8 +41,8 @@ function loadWeather() {
 
 function loadNews() {
     var news = $('#news')
-    var url = 'https://newsapi.org/v2/everything?domains=wsj.com&apiKey='
-    var apiKey = '6284e415eff74466ab1e9a500f9be3fa'
+    var url = 'https://gnews.io/api/v4/search?q=example&lang=en&country=us&max=10&apikey='
+    var apiKey = 'b33a8b7fabcbe3cc4aa291153e150f88'
 
     $.getJSON(url + apiKey, function(data) {
         var titles = data.articles.map(function(article) {
